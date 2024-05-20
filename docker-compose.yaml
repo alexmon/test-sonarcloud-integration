@@ -1,0 +1,11 @@
+services:
+
+  test-sonarcloud-integration:
+    build:
+      context: .
+    working_dir: /var/www/app
+    expose:
+      - "30000"
+    container_name: test-sonarcloud-integration
+    volumes:
+      - ./:/var/www/app

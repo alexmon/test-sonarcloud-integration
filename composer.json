@@ -1,0 +1,10 @@
+{
+    "name": "alex/test-sonar-cloud",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Alex\\TestSonarCloud\\": "src/"
+        }
+    },
+    "require": {}
+}
