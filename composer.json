@@ -6,5 +6,7 @@
             "Alex\\TestSonarCloud\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "php": "8.0"
+    }
 }
