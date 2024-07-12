@@ -1,0 +1,46 @@
+{
+  "warnings": 2,
+  "ignored_warnings": 0,
+  "findings": [
+    "semgrep-rules.php.lang.security.injection.tainted-sql-string",
+    "semgrep-rules.php.lang.security.injection.echoed-request"
+  ],
+  "fingerprints": [
+    {
+      "fingerprint": "69db3bd70940c0ee84ccfa5b2b685d857ff78e2b515404b5febd03baba04e26ea839a9e2a763adda04c007267ab7f5e46a1d0cb1b4577ddf5da238c76b4eb9eb_0",
+      "warning_type": "[\"A01:2017 - Injection\", \"A03:2021 - Injection\"] / [\"CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')\"]",
+      "severity": "ERROR",
+      "confidence": "MEDIUM",
+      "impact": "MEDIUM",
+      "check_name": "semgrep-rules.php.lang.security.injection.tainted-sql-string",
+      "message": "User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli->prepare(\"INSERT INTO test(id, label) VALUES (?, ?)\");`) or a safe library.",
+      "file": "public/db.connect.php",
+      "start_line": 20,
+      "end_line": 20,
+      "code": "$sql = \"SELECT * FROM users WHERE username = '$user'\";",
+      "references": [
+        "https://owasp.org/www-community/attacks/SQL_Injection"
+      ]
+    },
+    {
+      "fingerprint": "6bb5e671ae8b9fe4735f2b9a0c3ddad1500bf702c5ad7ab19ddd1c7d98075256fb6d5d437927b542b9039013a97a9dd98ddd02980da920c89b4bc6269905810b_0",
+      "warning_type": "[\"A07:2017 - Cross-Site Scripting (XSS)\", \"A03:2021 - Injection\"] / [\"CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\"]",
+      "severity": "ERROR",
+      "confidence": "MEDIUM",
+      "impact": "MEDIUM",
+      "check_name": "semgrep-rules.php.lang.security.injection.echoed-request",
+      "message": "`Echo`ing user input risks cross-site scripting vulnerability. You should use `htmlentities()` when showing data to users.",
+      "file": "public/db.connect.php",
+      "start_line": 27,
+      "end_line": 27,
+      "code": " echo \"id: \" . $row[\"id\"]. \" - Name: \" . $row[\"username\"]. \" - Password: \" . $row[\"password\"]. \"<br>\";",
+      "references": [
+        "https://www.php.net/manual/en/function.htmlentities.php",
+        "https://www.php.net/manual/en/reserved.variables.request.php",
+        "https://www.php.net/manual/en/reserved.variables.post.php",
+        "https://www.php.net/manual/en/reserved.variables.get.php",
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+      ]
+    }
+  ]
+}
